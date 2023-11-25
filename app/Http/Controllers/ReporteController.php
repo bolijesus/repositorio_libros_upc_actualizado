@@ -65,7 +65,7 @@ class ReporteController extends Controller
         $vistasTotales = 0;   
 
         foreach ($bibliografias as $bibliografia) {
-            $vistasTotales += $bibliografia->reporte['vistas'];
+            $vistasTotales += $bibliografia->reporte['vistas'] ?? 0;
         }
 
         return $vistasTotales;
@@ -77,7 +77,7 @@ class ReporteController extends Controller
         $descargasTotales = 0;   
 
         foreach ($bibliografias as $bibliografia) {
-            $descargasTotales += $bibliografia->reporte['descarga'];
+            $descargasTotales += $bibliografia->reporte['descarga'] ?? 0;
         }
 
         return $descargasTotales;
@@ -88,7 +88,7 @@ class ReporteController extends Controller
         $bibliografias = $bibliografias->load('reporte')->where('bibliografiable_type', '=', Libro::class);
         $vistasBilbiografia = 0;
         foreach ($bibliografias as $bibliografia) {
-            $vistasBilbiografia +=  $bibliografia->reporte['vistas'];
+            $vistasBilbiografia +=  $bibliografia->reporte['vistas'] ?? 0;
         }
 
         return $vistasBilbiografia;
@@ -100,7 +100,7 @@ class ReporteController extends Controller
         $descargasTotales = 0;   
 
         foreach ($bibliografias as $bibliografia) {
-            $descargasTotales += $bibliografia->reporte['descarga'];
+            $descargasTotales += $bibliografia->reporte['descarga'] ?? 0;
         }
 
         return $descargasTotales;
@@ -111,7 +111,7 @@ class ReporteController extends Controller
         $bibliografias = $bibliografias->load('reporte')->where('bibliografiable_type', '=', Revista::class);
         $vistasBilbiografia = 0;
         foreach ($bibliografias as $bibliografia) {
-            $vistasBilbiografia +=  $bibliografia->reporte['vistas'];
+            $vistasBilbiografia +=  $bibliografia->reporte['vistas'] ?? 0;
         }
 
         return $vistasBilbiografia;
@@ -123,7 +123,7 @@ class ReporteController extends Controller
         $descargasTotales = 0;   
 
         foreach ($bibliografias as $bibliografia) {
-            $descargasTotales += $bibliografia->reporte['descarga'];
+            $descargasTotales += $bibliografia->reporte['descarga'] ?? 0;
         }
 
         return $descargasTotales;
@@ -134,7 +134,7 @@ class ReporteController extends Controller
         $bibliografias = $bibliografias->load('reporte')->where('bibliografiable_type', '=', Tesis::class);
         $vistasBilbiografia = 0;
         foreach ($bibliografias as $bibliografia) {
-            $vistasBilbiografia +=  $bibliografia->reporte['vistas'];
+            $vistasBilbiografia +=  $bibliografia->reporte['vistas'] ?? 0;
         }
 
         return $vistasBilbiografia;
@@ -146,7 +146,7 @@ class ReporteController extends Controller
         $descargasTotales = 0;   
 
         foreach ($bibliografias as $bibliografia) {
-            $descargasTotales += $bibliografia->reporte['descarga'];
+            $descargasTotales += $bibliografia->reporte['descarga'] ?? 0;
         }
 
         return $descargasTotales;
