@@ -20,7 +20,7 @@
                         @if ($libro->bibliografia->revisado == $aceptado)
                             <div class="col-sm-6 col-md-4 col-xs-12">
                                 <div class="thumbnail">
-                                    <img src="{{ Storage::disk('s3')->url($libro->bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
+                                    <img src="{{ Storage::url($libro->bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
                                     <div class="caption">
                                         <h3>{{ $libro->bibliografia->titulo }}</h3>
                                         <small>por: <span>{{ $libro->bibliografia->usuario->usuario }}</span></small>
@@ -60,7 +60,7 @@
                         @if ($revista->bibliografia->revisado == $aceptado)
                             <div class="col-sm-6 col-md-4 col-xs-12">
                                 <div class="thumbnail">
-                                    <img src="{{ Storage::disk('s3')->url($revista->bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
+                                    <img src="{{ Storage::url($revista->bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
                                     <div class="caption">
                                         <h3>{{ $revista->bibliografia->titulo }}</h3>
                                         <small>por: <span>{{ $revista->bibliografia->usuario->usuario }}</span></small>
@@ -100,7 +100,7 @@
                         @if ($tesi->bibliografia->revisado == $aceptado)
                             <div class="col-sm-6 col-md-4 col-xs-12">
                                 <div class="thumbnail">
-                                    <img src="{{ Storage::disk('s3')->url($tesi->bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
+                                    <img src="{{ Storage::url($tesi->bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
                                     <div class="caption">
                                         <h3>{{ $tesi->bibliografia->titulo }}</h3>
                                         <small>por: <span>{{ $tesi->bibliografia->usuario->usuario }}</span></small>

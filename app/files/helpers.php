@@ -1,8 +1,8 @@
 <?php
 
-use App\Bibliografia;
+use App\Models\Bibliografia;
+use App\Models\Role;
 use App\Notifications\MessageSetn;
-use App\Role;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -62,9 +62,9 @@ if (!function_exists('crearDirectorio')) {
     function crearDirectorio($paht)
     {
        
-        if (Storage::disk('s3')->allFiles($paht) == null) {
+        if (Storage::allFiles($paht) == null) {
             
-            Storage::disk('s3')->makeDirectory($paht);
+            Storage::makeDirectory($paht);
             
         }
         

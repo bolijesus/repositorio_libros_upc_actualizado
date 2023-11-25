@@ -35,7 +35,7 @@
                         <div class="col-xs-12 col-md-3">
                             <label for="titulo">Imagen</label>
                             <div class="thumbnail">
-                                <img src="{{ Storage::disk('s3')->url($tesis->bibliografia->portada) }}" style="width: 128px;height: 128px;">
+                                <img src="{{ Storage::url($tesis->bibliografia->portada) }}" style="width: 128px;height: 128px;">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-3">

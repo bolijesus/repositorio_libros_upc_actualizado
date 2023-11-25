@@ -146,7 +146,7 @@ class TesisController extends Controller
         $tesis = $tesis->load(['bibliografia','bibliografia.autores']);
         $bibliografia = $tesis->bibliografia;
         if (\request()->has('_portada') && !($bibliografia->portada === $this->default_portada)) {
-            Storage::disk('s3')->delete($bibliografia->portada);
+            Storage::delete($bibliografia->portada);
         }
         $request = $this->storeImage($request, $usuario);
         $autores = $request->autores;
@@ -158,7 +158,7 @@ class TesisController extends Controller
                 $noAceptado=2;
 
                 if (request()->has('_archivo')) {
-                    Storage::disk('s3')->delete($tesis->bibliografia->archivo);               
+                    Storage::delete($tesis->bibliografia->archivo);               
                     $request = $this->updateFile($request, $tesis);
                 }  
 
@@ -204,9 +204,9 @@ class TesisController extends Controller
         $tesis = $tesis->load(['bibliografia']);
         if (\request()->ajax()) {
             try {
-                Storage::disk('s3')->delete($tesis->bibliografia->archivo);
+                Storage::delete($tesis->bibliografia->archivo);
                 if ($tesis->bibliografia->portada != $this->default_portada) {
-                    Storage::disk('s3')->delete($tesis->bibliografia->portada);
+                    Storage::delete($tesis->bibliografia->portada);
                 }
                 // $tesis->bibliografia->user_id = null;
                 // $tesis->bibliografia->save();
@@ -299,7 +299,7 @@ class TesisController extends Controller
           
             $usuario->save();
         }
-        return Storage::disk('s3')->download($bibliografia->archivo);
+        return Storage::download($bibliografia->archivo);
     }
 
     public function revision(Request $request, Tesis $tesis)

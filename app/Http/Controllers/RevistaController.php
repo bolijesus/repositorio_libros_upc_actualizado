@@ -146,7 +146,7 @@ class RevistaController extends Controller
         $revista = $revista->load(['bibliografia','bibliografia.autores']);
         $bibliografia = $revista->bibliografia;
         if (\request()->has('_portada') && !($bibliografia->portada === $this->default_portada)) {
-            Storage::disk('s3')->delete($bibliografia->portada);
+            Storage::delete($bibliografia->portada);
         }
         $request = $this->storeImage($request, $usuario);
         $autores = $request->autores;
@@ -157,7 +157,7 @@ class RevistaController extends Controller
                 $enRevision=1;
                 $noAceptado=2;
                 if (request()->has('_archivo')) {
-                    Storage::disk('s3')->delete($revista->bibliografia->archivo);               
+                    Storage::delete($revista->bibliografia->archivo);               
                     $request = $this->updateFile($request, $revista);
                 }  
 
@@ -202,9 +202,9 @@ class RevistaController extends Controller
         $revista = $revista->load(['bibliografia']);
         if (\request()->ajax()) {
             try {
-                Storage::disk('s3')->delete($revista->bibliografia->archivo);
+                Storage::delete($revista->bibliografia->archivo);
                 if ($revista->bibliografia->portada != $this->default_portada) {
-                    Storage::disk('s3')->delete($revista->bibliografia->portada);
+                    Storage::delete($revista->bibliografia->portada);
                 }
                 // $revista->bibliografia->user_id = null;
                 // $revista->bibliografia->save();
@@ -298,7 +298,7 @@ class RevistaController extends Controller
           
             $usuario->save();
         }
-        return Storage::disk('s3')->download($bibliografia->archivo);
+        return Storage::download($bibliografia->archivo);
     }
 
     public function revision(Request $request, Revista $revista)

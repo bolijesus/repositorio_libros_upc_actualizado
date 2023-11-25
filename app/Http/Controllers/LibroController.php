@@ -151,7 +151,7 @@ class LibroController extends Controller
         $libro = $libro->load(['bibliografia','bibliografia.autores']);
         $bibliografia = $libro->bibliografia;
         if (\request()->has('_portada') && !($bibliografia->portada === $this->default_portada)) {
-            Storage::disk('s3')->delete($bibliografia->portada);
+            Storage::delete($bibliografia->portada);
         }
         $request = $this->storeImage($request, $usuario);
         $autores = $request->autores;
@@ -162,7 +162,7 @@ class LibroController extends Controller
                 $enRevision=1;
                 $noAceptado=2;
                 if (request()->has('_archivo')) {
-                    Storage::disk('s3')->delete($libro->bibliografia->archivo);               
+                    Storage::delete($libro->bibliografia->archivo);               
                     $request = $this->updateFile($request, $libro);
                 }  
 
@@ -208,9 +208,9 @@ class LibroController extends Controller
         $libro = $libro->load(['bibliografia']);
         if (\request()->ajax()) {
             try {
-                Storage::disk('s3')->delete($libro->bibliografia->archivo);
+                Storage::delete($libro->bibliografia->archivo);
                 if ($libro->bibliografia->portada != $this->default_portada) {
-                    Storage::disk('s3')->delete($libro->bibliografia->portada);
+                    Storage::delete($libro->bibliografia->portada);
                 }
                 // $libro->bibliografia->user_id = null;
                 // $libro->bibliografia->save();
@@ -303,7 +303,7 @@ class LibroController extends Controller
           
             $usuario->save();
         }
-        return Storage::disk('s3')->download($bibliografia->archivo);
+        return Storage::download($bibliografia->archivo);
     }
 
     public function revision(Request $request, Libro $libro)

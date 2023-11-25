@@ -28,7 +28,7 @@
                 <div class="profile-header">&nbsp;</div>
                 <div class="profile-body">
                     <div class="image-area">
-                        <img src="{{ Storage::disk('s3')->url($user->foto_perfil) }}" alt="AdminBSB - Profile Image" style="width: 128px;height:128px" />
+                        <img src="{{ Storage::url($user->foto_perfil) }}" alt="AdminBSB - Profile Image" style="width: 128px;height:128px" />
                     </div>
                     <div class="content-area">
                         <h3>{{ $user->nombre.' '.$user->apellido }}</h3>
