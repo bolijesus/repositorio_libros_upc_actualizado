@@ -8,6 +8,7 @@ use App\Models\Libro;
 use App\Models\Revista;
 use App\Models\Tesis;
 use App\Models\User;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
