@@ -1,6 +1,15 @@
 <?php
 
+use App\Http\Controllers\AutorController;
+use App\Http\Controllers\GeneroController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LibroController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\RevistaController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TesisController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bibliografia;
@@ -64,28 +73,28 @@ Route::name('backoffice.')->middleware(['auth','userVerified'])->group(function 
 
     Route::resource('/role', RoleController::class);
     Route::resource('/user', UserController::class);
-    Route::get('/activate/{user}','UserController@activeUser')->name('activeUser');
+    Route::get('/activate/{user}',[UserController::class,'activeUser'])->name('activeUser');
 
-    Route::post('/notificacion','NotificationController@read')->name('notification.read');
+    Route::post('/notificacion',[NotificationController::class, 'read'])->name('notification.read');
 
-    Route::resource('/autor', 'AutorController');
-    Route::resource('/genero', 'GeneroController');
-    Route::get('/index','ReporteController@reportes')->name('index');
+    Route::resource('/autor', AutorController::class);
+    Route::resource('/genero', GeneroController::class);
+    Route::get('/index',[ReporteController::class, 'reportes'])->name('index');
 
-    Route::resource('/libro', 'LibroController');
-    Route::get('/libro/download/{libro}','LibroController@download')->name('libro.download');
-    Route::post('/libro/revision/{libro}', 'LibroController@revision')->name('libro.revision');
+    Route::resource('/libro', LibroController::class);
+    Route::get('/libro/download/{libro}',[LibroController::class,'download'])->name('libro.download');
+    Route::post('/libro/revision/{libro}', [LibroController::class,'revision'])->name('libro.revision');
     
-    Route::resource('/revista', 'RevistaController');
-    Route::get('/revista/download/{revista}','RevistaController@download')->name('revista.download');
-    Route::post('/revista/revision/{revista}', 'RevistaController@revision')->name('revista.revision');
+    Route::resource('/revista', RevistaController::class);
+    Route::get('/revista/download/{revista}',[RevistaController::class , 'download'])->name('revista.download');
+    Route::post('/revista/revision/{revista}', [RevistaController::class , 'revision'])->name('revista.revision');
     
-    Route::resource('/tesis', 'TesisController');
-    Route::get('/tesis/download/{tesis}','TesisController@download')->name('tesis.download');
-    Route::post('/tesis/revision/{tesis}', 'TesisController@revision')->name('tesis.revision');
+    Route::resource('/tesis', TesisController::class);
+    Route::get('/tesis/download/{tesis}',[TesisController::class, 'download'])->name('tesis.download');
+    Route::post('/tesis/revision/{tesis}', [TesisController::class, 'revision'])->name('tesis.revision');
     
-    Route::post('/puntos', 'LibroController@puntosActuales');
+    Route::post('/puntos', [LibroController::class,'puntosActuales']);
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
