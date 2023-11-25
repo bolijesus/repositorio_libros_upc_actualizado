@@ -62,9 +62,9 @@ if (!function_exists('crearDirectorio')) {
     function crearDirectorio($paht)
     {
        
-        if (Storage::allFiles($paht) == null) {
+        if (Storage::disk('s3')->allFiles($paht) == null) {
             
-            Storage::makeDirectory($paht);
+            Storage::disk('s3')->makeDirectory($paht);
             
         }
         

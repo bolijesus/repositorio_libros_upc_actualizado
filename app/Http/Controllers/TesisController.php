@@ -146,7 +146,7 @@ class TesisController extends Controller
         $tesis = $tesis->load(['bibliografia','bibliografia.autores']);
         $bibliografia = $tesis->bibliografia;
         if (\request()->has('_portada') && !($bibliografia->portada === $this->default_portada)) {
-            Storage::delete($bibliografia->portada);
+            Storage::disk('s3')->delete($bibliografia->portada);
         }
         $request = $this->storeImage($request, $usuario);
         $autores = $request->autores;
@@ -158,7 +158,7 @@ class TesisController extends Controller
                 $noAceptado=2;
 
                 if (request()->has('_archivo')) {
-                    Storage::delete($tesis->bibliografia->archivo);               
+                    Storage::disk('s3')->delete($tesis->bibliografia->archivo);               
                     $request = $this->updateFile($request, $tesis);
                 }  
 
@@ -204,9 +204,9 @@ class TesisController extends Controller
         $tesis = $tesis->load(['bibliografia']);
         if (\request()->ajax()) {
             try {
-                Storage::delete($tesis->bibliografia->archivo);
+                Storage::disk('s3')->delete($tesis->bibliografia->archivo);
                 if ($tesis->bibliografia->portada != $this->default_portada) {
-                    Storage::delete($tesis->bibliografia->portada);
+                    Storage::disk('s3')->delete($tesis->bibliografia->portada);
                 }
                 // $tesis->bibliografia->user_id = null;
                 // $tesis->bibliografia->save();
@@ -252,7 +252,7 @@ class TesisController extends Controller
         \crearDirectorio($rutaTesis);
         
         
-        $rutaGuardado = $request->file('_archivo')->storeAs($rutaTesis,$nombre_a_guardar.'.'.$extencion);
+        $rutaGuardado = $request->file('_archivo')->storeAs($rutaTesis,$nombre_a_guardar.'.'.$extencion, ['disk' => 's3']);
         $request = Arr::add($request, 'archivo', $rutaGuardado);
 
         return $request;
@@ -263,7 +263,7 @@ class TesisController extends Controller
         if ($request->has('_portada')) {
             $rutaImagen = $this->path_image.$usuario->id;
             \crearDirectorio($rutaImagen);
-            $rutaGuardado = $request->file('_portada')->store($rutaImagen);
+            $rutaGuardado = $request->file('_portada')->store($rutaImagen, ['disk' => 's3']);
             $request = Arr::add($request, 'portada', $rutaGuardado);
            
         }
@@ -299,7 +299,7 @@ class TesisController extends Controller
           
             $usuario->save();
         }
-        return Storage::download($bibliografia->archivo);
+        return Storage::disk('s3')->download($bibliografia->archivo);
     }
 
     public function revision(Request $request, Tesis $tesis)

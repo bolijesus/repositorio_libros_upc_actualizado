@@ -23,7 +23,7 @@
                         @foreach ($bibliografias as $bibliografia)
                                 <div class="col-sm-6 col-md-4 col-xs-12">
                                     <div class="thumbnail">
-                                        <img src="{{ Storage::url($bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
+                                        <img src="{{ Storage::disk('s3')->url($bibliografia->portada) }}" style="max-width:128px;max-height: 128px; min-width:128px;min-height: 128px; ">
                                         <div class="caption">
                                             <h3>{{ $bibliografia->titulo }}</h3>
                                             <small>por: <span>{{ $bibliografia->usuario->usuario }}</span></small>

@@ -139,7 +139,7 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
         if (\request()->has('_foto_perfil') && !($user->foto_perfil === $this->default_image)) {
-            Storage::delete($user->foto_perfil);
+            Storage::disk('s3')->delete($user->foto_perfil);
         }
         
         $request = $this->storeImage($request, $user);
